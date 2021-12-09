@@ -50,12 +50,15 @@ buttonStem = st.sidebar.button('Stem')
 st.sidebar.write('Create a stem plot.')
 buttonPSD = st.sidebar.button('Power Spectral Density')
 st.sidebar.write('Return PSD estimation of EEG signal over alpha, beta, theta and delta bands.')
+
 # Load raw data
-data_path = 'data/101_AgrLexAux_s1.vhdr'
-raw = mne.io.read_raw_brainvision(data_path, preload=True, verbose=False)
+# data_path = 'data/101_AgrLexAux_s1.vhdr'
+data_path = 'data/raw.fif'
+raw = mne.io.read_raw_fif(data_path, preload=True, verbose=False)
+# raw = mne.io.read_raw_brainvision(data_path, preload=True, verbose=False)
 raw.info['line_freq'] = 50.
-st.write(raw.n_times)
-raw.crop(tmin=5., tmax=10.)
+
+#raw.crop(tmin=5., tmax=10.)
 
 
 biosemi_montage = mne.channels.make_standard_montage('biosemi32')
@@ -104,5 +107,3 @@ if buttonStem:
 
 if buttonPSD:
     bar()
-
-st.write(raw.n_times)
