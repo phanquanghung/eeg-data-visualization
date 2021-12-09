@@ -54,7 +54,9 @@ st.sidebar.write('Return PSD estimation of EEG signal over alpha, beta, theta an
 data_path = 'data/101_AgrLexAux_s1.vhdr'
 raw = mne.io.read_raw_brainvision(data_path, preload=True, verbose=False)
 raw.info['line_freq'] = 50.
-raw.crop(5, 10)
+st.write(raw.n_times)
+raw.crop(tmin=5., tmax=10.)
+
 
 biosemi_montage = mne.channels.make_standard_montage('biosemi32')
 fake_info = mne.create_info(ch_names=biosemi_montage.ch_names, sfreq=1000,
@@ -102,3 +104,5 @@ if buttonStem:
 
 if buttonPSD:
     bar()
+
+st.write(raw.n_times)
